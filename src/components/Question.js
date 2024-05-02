@@ -11,7 +11,7 @@ const Question = () => {
       <div className="question">{curQues.question}</div>
       <div className="answers">
       {quizState.answers.map((answer, index) => (
-          <Answer answerText={answer} key={index} />
+          <Answer answerText={answer} key={index} index ={index} />
         ))}
       </div>
     </div>
