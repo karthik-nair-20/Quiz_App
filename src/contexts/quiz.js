@@ -1,14 +1,15 @@
 import { createContext, useReducer } from "react";
-import questions from "../data"
-import { shuffleAnswers } from "../helpers";
+// import questions from "../data"
+import { normalizeQuestions, shuffleAnswers } from "../helpers";
 
 const initialState = {
   currentQuestion:0,
-  questions,
+  questions:[],
   showResult: false,
-  answers: shuffleAnswers(questions[0]),
+  answers:[],
   correctAnswersCount: 0,
   currentAnswer: "",
+  err: null,
 
 }
 
@@ -45,6 +46,20 @@ const reducer = (state, action) => {
     }
     case "RESTART": {
         return initialState;
+    }
+    case "LOADED_QUESTIONS": {
+      const normalizedQuestions = normalizeQuestions(action.payload);
+      return {
+        ...state,
+        questions: normalizedQuestions,
+        answers: shuffleAnswers(normalizedQuestions[0]),
+      };
+    }
+    case "SERVER_ERROR": {
+      return {
+        ...state,
+        err: "The API Has Failed To fetch Data"
+      }
     }
     default: {
         return state;
