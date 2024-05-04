@@ -18,11 +18,9 @@ const Quiz = () => {
     fetch(apiUrl)
     .then((res) => res.json())
     .then((data) => {
-      console.log("data", data);
       dispatch({ type: "LOADED_QUESTIONS", payload: data.results });
     })
     .catch((err) => {
-      console.log("err", err.message);
       dispatch({ type: "SERVER_ERROR"});
     });
   });
