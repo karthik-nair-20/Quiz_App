@@ -3,7 +3,7 @@ import Answer from "./Answer";
 import { QuizContext } from "../contexts/quiz";
 
 const Question = () => {
-  const[quizState] = useContext(QuizContext);
+  const[quizState, dispatch] = useContext(QuizContext);
   // console.log("question", quizState);
   const curQues = quizState.questions[quizState.currentQuestion];
   return (
@@ -11,7 +11,15 @@ const Question = () => {
       <div className="question">{curQues.question}</div>
       <div className="answers">
       {quizState.answers.map((answer, index) => (
-          <Answer answerText={answer} key={index} index ={index} />
+          <Answer 
+          answerText={answer} 
+          key={index} 
+          index ={index} 
+          onSelectAnswer ={(answersText) => 
+              dispatch({type: "SELECT_ANSWER",payload: answersText})}
+          currentAnswer = {quizState.currentAnswer}
+          correctAnswer = {curQues.correctAnswer}
+          />
         ))}
       </div>
     </div>

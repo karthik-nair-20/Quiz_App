@@ -1,12 +1,24 @@
-const Answer = ({answerText, index}) => {
+const Answer = ({
+  answerText,
+  index,
+  onSelectAnswer,
+  currentAnswer,
+  correctAnswer,
+}) => {
   const letterMappping = ["A",'B','C','D'];
+  const isCorrectAnswer = currentAnswer && answerText === correctAnswer;
+  const isWrongAnswer =
+  currentAnswer === answerText && currentAnswer !== correctAnswer;
+  const correctAnswerClass = isCorrectAnswer ? "correct-answer" : "";
+  const wrongAnswerClass = isWrongAnswer ? "wrong-answer" : "";
+  const disabledClass = currentAnswer ? "disabled-answer" : "";
   return (
-    <div className="answer">
+    <div className={`answer ${correctAnswerClass} ${wrongAnswerClass} ${disabledClass}`}
+    onClick={() => onSelectAnswer(answerText)}>
       <div className="answer-letter">{letterMappping[index]}</div>
       <div className="answer-text">{answerText}</div>
     </div>
   )
-
 }
 
 export default Answer;
