@@ -1,33 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Answer } from "./Answer";
 import { Question } from "./Question";
 import { Button } from "./Button";
 import { shuffleAnswers } from "../helpers"
-import { useQuestion } from "../hooks/useQuestion";
-import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
-import { dataAtom, qnaAtom, scoreAtom } from "../store/atoms/questions";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { dataAtom, loading, qnaAtom, scoreAtom } from "../store/atoms/questions";
 import { IQna } from "../interfaces/questionsAndAnswers.interface";
+import { Loader } from "./Loader";
 
-const Quiz = () => {
+interface end {
+  endQuiz: () => void
+}
+
+const Quiz = ({ endQuiz }: end) => {
   const data = useRecoilValue(dataAtom);
+  const waiting = useRecoilValue(loading);
   const [questionsAndAnswers, setQuestionsAndAnswers] = useRecoilState<IQna[]>(qnaAtom);
-  const { getQuestions } = useQuestion();
-  const setScoreAtom = useSetRecoilState(scoreAtom);
   const score = useRecoilValue(scoreAtom);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
-
-
-  useEffect(() =>{
-    try {
-      async function fetchData() {
-        await getQuestions();
-      }
-      fetchData();
-    } catch(err) {
-      alert('Error while fetching api')
-    }
-  },[]);
 
   function handleNext() {
     let point: number = 0;
@@ -38,14 +29,18 @@ const Quiz = () => {
     setQuestionsAndAnswers((qna) => [
       ...qna,
       {
-        question: data[questionIndex].question,
-        user_answer: selectedAnswer,
-        correct_answer: data[questionIndex].correct_answer,
+        question: decodeURIComponent(data[questionIndex].question),
+        user_answer: decodeURIComponent(selectedAnswer),
+        correct_answer: decodeURIComponent(data[questionIndex].correct_answer),
         point
       }
     ])
     setQuestionIndex(questionIndex + 1);
     setSelectedAnswer('');
+  }
+
+  function handleSubmit() {
+    endQuiz();
   }
 
   function checkAnswer(ans: string) {
@@ -56,6 +51,7 @@ const Quiz = () => {
 
   return (
     <div className="container mx-auto max-w-screen-lg h-screen px-4 sm:px-2">
+      {waiting && <Loader />}
       {data.length > 0 && (
               <div className="flex justify-center items-center flex-col space-y-4">
               hello from Quiz
@@ -71,8 +67,10 @@ const Quiz = () => {
                 )}
               </div>
               <div className="flex gap-4">
-                {/* <Button text="Previous" onClick={handlePrev} disable={currentPage === 1} /> */}
-                <Button text="Next" onClick={handleNext} disable={questionIndex === data.length-1} />
+                <Button text="Next" onClick={handleNext} disable={questionIndex === data.length-1 || selectedAnswer === ""} />
+                { questionIndex === data.length-1 && (
+                  <Button text="Submit" onClick={handleSubmit} disable={false} />
+                )}
               </div>
           </div>
       )}

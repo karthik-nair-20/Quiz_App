@@ -6,13 +6,11 @@ import Quiz from "./Quiz";
 import Result from "./Result";
 
 export default function App() {
-  const [data, setData] = useRecoilState(dataAtom);
   const [resultData, setResultData] = useRecoilState(qnaAtom);
 
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [countdownTime, setCountdownTime] = useState(null);
+  // const [countdownTime, setCountdownTime] = useState(null);
 
   function startQuiz() {
     setIsQuizStarted(true);
@@ -35,15 +33,15 @@ export default function App() {
     <div>
       { !isQuizStarted && !isQuizCompleted && (
         //api config
-        <Main />
+        <Main startQuiz={startQuiz} />
       )}
 
       { isQuizStarted && !isQuizCompleted && (
-        <Quiz />
+        <Quiz endQuiz={endQuiz} />
       )}
 
       { !isQuizStarted && isQuizCompleted && (
-        <Result />
+        <Result replayQuiz = {replayQuiz} />
       )}  
     </div>
   )

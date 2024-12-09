@@ -8,30 +8,15 @@ export const dataAtom = atom<IQuestion[]>({
   default: []
 })
 
-// export const itemsPerPageAtom = atom({
-//   key: 'itemsPerPage',
-//   default: 10,
-// });
-
-// export const currentPageAtom = atom({
-//   key: 'currentPage',
-//   default: 1,
-// });
-
-// export const selectedAtom = atom({
-//   key: 'selectedAtom',
-//   default:""
-// })
+export const loading = atom({
+  key: 'loading',
+  default: false
+})
 
 export const scoreAtom = atom({
   key: 'scoreAtom',
   default: 0,
 })
-
-// export const onClickNext = atom({
-//   key: 'onClickNext',
-//   default: false,
-// })
 
 export const qnaAtom = atom<IQna[]>({
   key: 'qnaAtom',
