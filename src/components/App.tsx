@@ -1,47 +1,29 @@
-import { useRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 import { dataAtom, qnaAtom } from "../store/atoms/questions"
 import { useState } from "react";
 import Main from "./Main";
 import Quiz from "./Quiz";
 import Result from "./Result";
+import { isQuizCompleted, isQuizStarted } from "../store/atoms/status";
 
 export default function App() {
-  const [resultData, setResultData] = useRecoilState(qnaAtom);
-
-  const [isQuizStarted, setIsQuizStarted] = useState(false);
-  const [isQuizCompleted, setIsQuizCompleted] = useState(false);
-  // const [countdownTime, setCountdownTime] = useState(null);
-
-  function startQuiz() {
-    setIsQuizStarted(true);
-  }
-
-  function endQuiz() {
-    setIsQuizStarted(false)
-    setIsQuizCompleted(true);
-  }
-
-  function replayQuiz() {
-    //shuffle the question from old GET fetch
-    setIsQuizCompleted(false);
-    setIsQuizStarted(true);
-    setResultData([]);
-    //timer reset
-  }
+  const quizStarted= useRecoilValue(isQuizStarted);
+  const quizCompleted= useRecoilValue(isQuizCompleted);
+ 
 
   return (
-    <div>
-      { !isQuizStarted && !isQuizCompleted && (
+    <div className="bg-[#F8FAFC]">
+      { !quizStarted && !quizCompleted && (
         //api config
-        <Main startQuiz={startQuiz} />
+        <Main />
       )}
 
-      { isQuizStarted && !isQuizCompleted && (
-        <Quiz endQuiz={endQuiz} />
+      { quizStarted && !quizCompleted && (
+        <Quiz />
       )}
 
-      { !isQuizStarted && isQuizCompleted && (
-        <Result replayQuiz = {replayQuiz} />
+      { !quizStarted && quizCompleted && (
+        <Result />
       )}  
     </div>
   )

@@ -3,20 +3,18 @@ import { Answer } from "./Answer";
 import { Question } from "./Question";
 import { Button } from "./Button";
 import { shuffleAnswers } from "../helpers"
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { dataAtom, loading, qnaAtom, scoreAtom } from "../store/atoms/questions";
 import { IQna } from "../interfaces/questionsAndAnswers.interface";
 import { Loader } from "./Loader";
+import { endQuiz } from "../store/atoms/status";
 
-interface end {
-  endQuiz: () => void
-}
-
-const Quiz = ({ endQuiz }: end) => {
+const Quiz = () => {
   const data = useRecoilValue(dataAtom);
   const waiting = useRecoilValue(loading);
   const [questionsAndAnswers, setQuestionsAndAnswers] = useRecoilState<IQna[]>(qnaAtom);
   const score = useRecoilValue(scoreAtom);
+  const quizEnd = useSetRecoilState(endQuiz);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
 
@@ -40,7 +38,7 @@ const Quiz = ({ endQuiz }: end) => {
   }
 
   function handleSubmit() {
-    endQuiz();
+    quizEnd({started: false, completed: true});
   }
 
   function checkAnswer(ans: string) {
