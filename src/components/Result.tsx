@@ -9,7 +9,7 @@ const panes = [
 
 export default function Result() {
   return (
-    <div>
+    <div className='min-w-full min-h-full p-20'>
       <Tab panes={panes} />
     </div>
   )

@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { dataAtom } from "./questions";
 
 export const isQuizStarted = atom({
   key: 'isQuizStarted',
@@ -33,3 +34,13 @@ export const endQuiz = selector({
     set(isQuizCompleted, true)
   }
 })
+
+// export const replayQuiz = selector({
+//   key: 'replayQuiz',
+//   get: ({ get }) => {
+//     return get(dataAtom);
+//   },
+//   set: ({ set }) => {
+//     set(dataAtom,)
+//   }
+// })

@@ -4,8 +4,6 @@ import {useRecoilValue, useSetRecoilState } from "recoil";
 import { dataAtom, loading } from "../store/atoms/questions";
 import { categoryAtom, difficultyAtom, numOfQueAtom, questionsTypeAtom } from "../store/atoms/selection";
 
-
-
 export function useQuestion() {
   const category = useRecoilValue(categoryAtom);
   const numOfQuestion = useRecoilValue(numOfQueAtom);
@@ -31,6 +29,7 @@ export function useQuestion() {
     } finally {
       setLoading(false);
     }
+    // eslint-disable-next-line
   },[apiUrl, setData]);
 
   return { getQuestions, loading };

@@ -26,14 +26,14 @@ export function QnA() {
         </thead>
         <tbody>
           {resultData.map((data) => {
-            return <tr className="bg-white">
+            return <tr className="bg-white border">
               <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                 {data.question}
               </th>
               <td className="px-6 py-4">
                 {data.user_answer}
               </td>
-              <td className="px-6 py-4">
+              <td className="px-6 py-4 bg-green-100">
                 {data.correct_answer}
               </td>
               <td className="px-6 py-4">

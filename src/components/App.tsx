@@ -1,6 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil"
-import { dataAtom, qnaAtom } from "../store/atoms/questions"
-import { useState } from "react";
+import { useRecoilValue } from "recoil"
 import Main from "./Main";
 import Quiz from "./Quiz";
 import Result from "./Result";
@@ -12,9 +10,8 @@ export default function App() {
  
 
   return (
-    <div className="bg-[#F8FAFC]">
+    <div className="font-sans">
       { !quizStarted && !quizCompleted && (
-        //api config
         <Main />
       )}
 
