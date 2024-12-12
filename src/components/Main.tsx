@@ -38,7 +38,7 @@ export default function Main() {
       <div className="bg-white min-h-screen text-gray-100">
           <div className='grid md:grid-cols-2 min-h-screen'>
             <Homeview />
-            <div className="flex flex-col justify-center bg-gradient-to-bl from-black to-gray-400 p-6">
+            <div className="flex flex-col justify-center bg-gradient-to-bl from-gray-800 to-gray-500 p-6">
               <h1 className="md:hidden text-3xl font-bold mb-6 text-center text-transparent bg-clip-text bg-slate-100">
                 Quiz Master
               </h1>

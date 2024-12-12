@@ -9,7 +9,7 @@ export function Loader() {
         <circle
           fill="none"
           stroke-opacity="1"
-          stroke="#FF0D39"
+          stroke="#808080"
           stroke-width=".5"
           cx="100"
           cy="100"
