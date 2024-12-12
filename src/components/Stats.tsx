@@ -25,7 +25,7 @@ export function Stats() {
           className="mx-auto w-40 h-40 bg-gradient-to-br from-blue-600 to-blue-400
           rounded-full flex items-center justify-center mb-6"
         >
-          <img src="/quiz-duck.svg" alt="quiz duck" />
+          {/* <img src="/" alt="quiz duck" /> */}
         </div>
 
         <h4 className="text-3xl font-bold text-gray-800 mb-4">
