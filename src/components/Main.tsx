@@ -6,6 +6,7 @@ import { useQuestion } from '../hooks/useQuestion'
 import { Homeview } from './Homeview'
 import { startQuiz } from '../store/atoms/status'
 import Header from './Header'
+import { Footer } from './Footer'
 
 export default function Main() {
   const [categories, setCategories] = useRecoilState<string>(categoryAtom);
@@ -38,7 +39,7 @@ export default function Main() {
       <div className="bg-white min-h-screen text-gray-100">
           <div className='grid md:grid-cols-2 min-h-screen'>
             <Homeview />
-            <div className="flex flex-col justify-center bg-gradient-to-bl from-gray-800 to-gray-500 p-6">
+            <div className="flex flex-col justify-center bg-gray-900 p-6">
               <h1 className="md:hidden text-3xl font-bold mb-6 text-center text-transparent bg-clip-text bg-slate-100">
                 Quiz Master
               </h1>
@@ -81,11 +82,12 @@ export default function Main() {
                   value={questionType}
                   onChange={(e, data) => handleSelectChange(e, data, setQuestionType)}
                 />
-                <button className="w-full bg-gradient-to-br from-blue-600 to-blue-400 p-4 text-center text-md transition-all shadow-none hover:bg-[#3730A3] hover:shadow-sm ml-2" type="button" onClick={handleClick}>Start Quiz</button>
+                <button className="w-full bg-gradient-to-br from-blue-600 to-blue-400 p-4 text-center text-md transition-all shadow-none hover:bg-blue-600 hover:shadow-sm ml-2" type="button" onClick={handleClick}>Start Quiz</button>
               </div>
             </div>
           </div>
       </div>
+      <Footer />
     </>
   )
 }
